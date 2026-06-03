@@ -13,3 +13,6 @@ def answer_question(q):
 def chat(query: Query):
     return {"answer": answer_question(query.question)}
   
+@app.get("/")
+def home():
+    return {"status": "backend alive"}
