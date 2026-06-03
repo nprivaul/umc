@@ -16,3 +16,18 @@ def chat(query: Query):
 @app.get("/")
 def home():
     return {"status": "backend alive"}
+
+from openai import OpenAI
+import os
+
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+def answer_question(q):
+    resp = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are a helpful academic assistant."},
+            {"role": "user", "content": q}
+        ]
+    )
+    return resp.choices[0].message.content
